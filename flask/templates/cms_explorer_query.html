@@ -1,0 +1,559 @@
+{% extends "base.html" %}
+{% block cms_explorer_query %}
+        <div class="row" style="height:100vh;">
+                <div class="col-md-8 col-md-offset-2 text-center" style="margin-top:25vh;">
+                        <h3>Search, and analyze financial relationships between physicians and the pharmaceutical industries. </h3>
+                </div>
+                <div class="col-md-8 col-md-offset-2 text-center">
+                        <h2 style="font-weight:300;">Search by State, Company or Both</h2>
+                        <br />
+                        <form class="form-inline" action="/cms_explorer" method="POST">
+                                <div class="form-group text-center">
+                                        <select class="form-control" name="state">
+                                                <option>All</option>
+                                                <option>Alaska</option>
+                                                <option>Alabama</option>
+                                                <option>Arkansas</option>
+                                                <option>Arizona</option>
+                                                <option>California</option>
+                                                <option>Colorado</option>
+                                                <option>Connecticut</option>
+                                                <option>District of Columbia</option>
+                                                <option>Delaware</option>
+                                                <option>Florida</option>
+                                                <option>Georgia</option>
+                                                <option>Hawaii</option>
+                                                <option>Iowa</option>
+                                                <option>Idaho</option>
+                                                <option>Illinois</option>
+                                                <option>Indiana</option>
+                                                <option>Kansas</option>
+                                                <option>Kentucky</option>
+                                                <option>Louisiana</option>
+                                                <option>Massachusetts</option>
+                                                <option>Maryland</option>
+                                                <option>Maine</option>
+                                                <option>Michigan</option>
+                                                <option>Minnesota</option>
+                                                <option>Missouri</option>
+                                                <option>Mississippi</option>
+                                                <option>Montana</option>
+                                                <option>North Carolina</option>
+                                                <option>North Dakota</option>
+                                                <option>Nebraska</option>
+                                                <option>New Hampshire</option>
+                                                <option>New Jersey</option>
+                                                <option>New Mexico</option>
+                                                <option>Nevada</option>
+                                                <option>New York</option>
+                                                <option>Ohio</option>
+                                                <option>Oklahoma</option>
+                                                <option>Oregon</option>
+                                                <option>Pennsylvania</option>
+                                                <option>Puerto Rico</option>
+                                                <option>Rhode Island</option>
+                                                <option>South Carolina</option>
+                                                <option>South Dakota</option>
+                                                <option>Tennessee</option>
+                                                <option>Texas</option>
+                                                <option>Utah</option>
+                                                <option>Virginia</option>
+                                                <option>Vermont</option>
+                                                <option>Washington</option>
+                                                <option>Wisconsin</option>
+                                                <option>West Virginia</option>
+                                                <option>Wyoming</option>
+                                        </select>
+                                        <br /> <br />
+
+                                        <select class="form-control" name="company">
+                                                <option>All</option>
+                                                <option>3M Company</option>
+                                                <option>Abbott Laboratories</option>
+                                                <option>AbbVie, Inc.</option>
+                                                <option>ABIOMED</option>
+                                                <option>Acclarent, Inc</option>
+                                                <option>Accuray Incorporated</option>
+                                                <option>ACELL, INC.</option>
+                                                <option>Acorda Therapeutics, Inc</option>
+                                                <option>Actavis Pharma Inc</option>
+                                                <option>Actelion Pharmaceuticals US, Inc.</option>
+                                                <option>ACUMED LLC</option>
+                                                <option>Advanced Bionics, LLC</option>
+                                                <option>Advanced Circulatory Systems Inc.</option>
+                                                <option>Advanced Orthopaedic Solutions, Inc.</option>
+                                                <option>Aegerion Pharmaceuticals, Inc.</option>
+                                                <option>Aerocrine, Inc</option>
+                                                <option>Aesculap Implant Systems, LLC</option>
+                                                <option>Aesculap, Inc.</option>
+                                                <option>Akorn Inc.</option>
+                                                <option>Alcon Research Ltd</option>
+                                                <option>Alere San Diego, Inc.</option>
+                                                <option>ALERE SCARBOROUGH, INC.</option>
+                                                <option>Alexion Pharmaceuticals, Inc.</option>
+                                                <option>Alexza Pharmaceuticals, Inc.</option>
+                                                <option>Alkermes, Inc.</option>
+                                                <option>Allerderm Laboratories</option>
+                                                <option>Allergan Inc.</option>
+                                                <option>AMAG Pharmaceuticals, Inc.</option>
+                                                <option>Amarin Pharma Inc.</option>
+                                                <option>American Medical Systems Inc.</option>
+                                                <option>Amgen Inc.</option>
+                                                <option>Amniox Medical</option>
+                                                <option>Amphastar Pharmaceuticals, Inc.</option>
+                                                <option>Anaeropahrma Science, Inc.</option>
+                                                <option>AngioDynamics, Inc.</option>
+                                                <option>Animas Corporation</option>
+                                                <option>Ansell Healthcare Products LLC</option>
+                                                <option>Antares Pharma, Inc.</option>
+                                                <option>APO-PHARMA INC.</option>
+                                                <option>APOLLO ENDOSURGERY INC</option>
+                                                <option>Applied Medical Resources Corporation</option>
+                                                <option>Aqua Pharmaceuticals</option>
+                                                <option>Arbor Pharmaceuticals, Inc.</option>
+                                                <option>ARIAD Pharmaceuticals, Inc.</option>
+                                                <option>ARKRAY USA, Inc.</option>
+                                                <option>Arrow International, Inc.</option>
+                                                <option>Arthrex, Inc.</option>
+                                                <option>Arthrosurface Incorporated</option>
+                                                <option>Astellas Pharma Europe BV</option>
+                                                <option>Astellas Pharma Global Development</option>
+                                                <option>Astellas Pharma Inc</option>
+                                                <option>Astellas Scientific and Medical Affairs</option>
+                                                <option>Astellas US Technologies</option>
+                                                <option>AstraZeneca Pharmaceuticals LP</option>
+                                                <option>Atossa Genetics Inc</option>
+                                                <option>AtriCure, Inc.</option>
+                                                <option>Atrium Medical Corporation</option>
+                                                <option>Auxilium Pharmaceuticals, Inc.</option>
+                                                <option>Avanir Pharmaceuticals, Inc.</option>
+                                                <option>Avinger Inc.</option>
+                                                <option>AxoGen</option>
+                                                <option>B. Braun Interventional Systems Inc.</option>
+                                                <option>B. Braun Medical Inc.</option>
+                                                <option>Bacterin International Inc</option>
+                                                <option>Bard Access Systems, Inc.</option>
+                                                <option>Bard Peripheral Vascular, Inc.</option>
+                                                <option>Baxter Healthcare</option>
+                                                <option>Bayer HealthCare LLC</option>
+                                                <option>Beckman Coulter, Inc.</option>
+                                                <option>Becton, Dickinson and Company</option>
+                                                <option>Bio Products Laboratory, Inc.</option>
+                                                <option>Bio-Rad Laboratories, Inc.</option>
+                                                <option>BioFire Diagnostics, LLC</option>
+                                                <option>Biogen Idec Inc.</option>
+                                                <option>BIOLASE, INC.</option>
+                                                <option>BioMarin Pharmaceutical Inc.</option>
+                                                <option>bioMerieux</option>
+                                                <option>Biomet, Inc.</option>
+                                                <option>BIONESS INC</option>
+                                                <option>Biosense Webster, Inc.</option>
+                                                <option>BIOTRONIK INC.</option>
+                                                <option>Blockade Medical, LLC</option>
+                                                <option>Boehringer Ingelheim Pharma GmbH & Co.KG</option>
+                                                <option>Boehringer Ingelheim Pharmaceuticals, Inc.</option>
+                                                <option>BOSTON SCIENTIFIC CORPORATION</option>
+                                                <option>BRACCO DIAGNOSTICS INC.</option>
+                                                <option>Brahms GmbH</option>
+                                                <option>Brainlab, Inc.</option>
+                                                <option>Braintree Laboratories, Inc.</option>
+                                                <option>Bristol-Myers Squibb Company</option>
+                                                <option>BTG International, Inc.</option>
+                                                <option>C. R. Bard, Inc. & Subsidiaries</option>
+                                                <option>C2 Therapeutics, Inc</option>
+                                                <option>Canon U.S.A., Inc.</option>
+                                                <option>Cantel Medical Corp.</option>
+                                                <option>Capnia, Inc.</option>
+                                                <option>Cardica, Inc.</option>
+                                                <option>Cardiovascular Systems Inc.</option>
+                                                <option>Cardiox Corporation</option>
+                                                <option>CareFusion Corporation</option>
+                                                <option>Carestream Health, Inc.</option>
+                                                <option>Carl Zeiss Meditec AG</option>
+                                                <option>CAS Medical Systems Inc.</option>
+                                                <option>Celgene Corporation</option>
+                                                <option>Celleration_Inc</option>
+                                                <option>Centinel Spine, Inc.</option>
+                                                <option>Ceterix Orthopaedics, Inc.</option>
+                                                <option>Cheetah Medical, Inc.</option>
+                                                <option>Chek-Med Systems, Inc.</option>
+                                                <option>Choice Spine, LP</option>
+                                                <option>Cianna Medical, Inc</option>
+                                                <option>CIVCO Medical Instruments</option>
+                                                <option>Cochlear Ltd</option>
+                                                <option>Coloplast Corp</option>
+                                                <option>ConforMIS, Inc.</option>
+                                                <option>CONMED Corporation</option>
+                                                <option>Convatec Inc.</option>
+                                                <option>Convergent Dental Inc.</option>
+                                                <option>Coopervision Inc.</option>
+                                                <option>Cordis Corporation</option>
+                                                <option>CorMatrix Cardiovascular Inc.</option>
+                                                <option>COTHERA, LLC</option>
+                                                <option>Covidien LP</option>
+                                                <option>Covis Pharmaceuticals, Inc.</option>
+                                                <option>Crealta Pharmaceuticals LLC</option>
+                                                <option>CryoLife, Inc.</option>
+                                                <option>Cubist Pharmaceuticals Inc</option>
+                                                <option>Cumberland Pharmaceuticals, Inc.</option>
+                                                <option>Cyberonics, Inc.</option>
+                                                <option>Daiichi Sankyo Inc.</option>
+                                                <option>Davol Inc.</option>
+                                                <option>Dental Equipment LLC</option>
+                                                <option>Dental Imaging Technologies Corp.</option>
+                                                <option>DENTPSLY IH AB</option>
+                                                <option>DENTSPLY LLC</option>
+                                                <option>Depomed, Inc.</option>
+                                                <option>DePuy Synthes Sales Inc.</option>
+                                                <option>DETNSPLY DeTrey GmbH</option>
+                                                <option>Dexcom, Inc.</option>
+                                                <option>DFINE, Inc</option>
+                                                <option>Diagnostica Stago SAS</option>
+                                                <option>Diagnostica Stago, Inc</option>
+                                                <option>Dr.Reddy's Laboratories,Inc.</option>
+                                                <option>Draeger Medical GmbH</option>
+                                                <option>Draeger Medical Systems, Inc</option>
+                                                <option>Duchesnay USA Incorporated</option>
+                                                <option>Durata Therapeutics Inc.</option>
+                                                <option>DUSA Pharmaceuticals, Inc.</option>
+                                                <option>Dyax Corp</option>
+                                                <option>eCardio Diagnostics, LLC</option>
+                                                <option>EDAP TECHNOMED INC</option>
+                                                <option>Edwards Lifesciences Corporation</option>
+                                                <option>Eisai Inc.</option>
+                                                <option>Electrical Geodesics, Inc</option>
+                                                <option>Eli Lilly and Company</option>
+                                                <option>Ellipse Technologies, Inc.</option>
+                                                <option>EMD Serono, Inc.</option>
+                                                <option>Emergent Biosolutions Inc.</option>
+                                                <option>EMPI, INC.</option>
+                                                <option>ENCORE MEDICAL, LP</option>
+                                                <option>Endo Pharmaceuticals Inc.</option>
+                                                <option>Endogastric Solutions, Inc</option>
+                                                <option>Entellus Medical, Inc.</option>
+                                                <option>Ethicon Inc.</option>
+                                                <option>Evofem Inc.</option>
+                                                <option>Exactech, Inc.</option>
+                                                <option>Exelixis Inc.</option>
+                                                <option>Ferring Pharmaceuticals Inc.</option>
+                                                <option>Fidia Pharma USA Inc</option>
+                                                <option>Fisher & Paykel Healthcare Limited</option>
+                                                <option>Focus Diagnostics Inc</option>
+                                                <option>Forest Laboratories, Inc.</option>
+                                                <option>Fresenius USA Marketing, Inc.</option>
+                                                <option>FUJIFILM Medical Systems U.S.A., Inc.</option>
+                                                <option>FUJIFILM SonoSite, Inc.</option>
+                                                <option>Fujirebio Diagnostics, Incorporated</option>
+                                                <option>FUKUDA DENSHI Co., Ltd.</option>
+                                                <option>Functional Neuromodulation Inc</option>
+                                                <option>Galderma Laboratories, L.P.</option>
+                                                <option>Galderma Research & Development, LLC</option>
+                                                <option>Galena Biopharma Inc.</option>
+                                                <option>Galil Medical Inc.</option>
+                                                <option>GE Global Research an unincorporated business unit of General Electric Company</option>
+                                                <option>GE Healthcare</option>
+                                                <option>GEBAUER COMPANY</option>
+                                                <option>Geistlich Pharma, North America, Inc.</option>
+                                                <option>Genentech, Inc.</option>
+                                                <option>Genesys Orthopedics Systems, L.L.C.</option>
+                                                <option>Gilead Sciences Inc</option>
+                                                <option>Given Imaging Ltd.</option>
+                                                <option>Glaukos Corporation</option>
+                                                <option>GlaxoSmithKline, LLC.</option>
+                                                <option>Globus Medical, Inc.</option>
+                                                <option>Grifols Biologicals, Inc.</option>
+                                                <option>Grifols Shared Services North America, Inc.</option>
+                                                <option>Guerbet LLC</option>
+                                                <option>H. Lundbeck A S</option>
+                                                <option>Haag-Streit USA, Inc.</option>
+                                                <option>Haemonetics Corporation</option>
+                                                <option>Halozyme Inc</option>
+                                                <option>Halt Medical, INC</option>
+                                                <option>HALYARD HEALTH, INC.</option>
+                                                <option>HANSEN MEDICAL, INC.</option>
+                                                <option>HeartWare, Inc.</option>
+                                                <option>Helena Laboratories Corporation</option>
+                                                <option>HILL-ROM HOLDINGS, INC.</option>
+                                                <option>Hill-Rom Services PTE, LTD</option>
+                                                <option>Hollister Incorporated</option>
+                                                <option>HOLOGIC INC</option>
+                                                <option>Horizon Pharma USA, Inc.</option>
+                                                <option>Hospira Worldwide, Inc.</option>
+                                                <option>Hoya Surgical Optics, Inc</option>
+                                                <option>Hyperion Therapeutics Inc.</option>
+                                                <option>HZNP USA Inc.</option>
+                                                <option>IBSA Institut Biochimique SA</option>
+                                                <option>Immucor, Inc.</option>
+                                                <option>ImpediMed, Inc.</option>
+                                                <option>Incyte Corporation</option>
+                                                <option>INO Therapeutics LLC</option>
+                                                <option>Inova Diagnostics, Inc.</option>
+                                                <option>Institute for Transfusion Medicine</option>
+                                                <option>Instrumentation Laboratory Company</option>
+                                                <option>INSYS Therapeutics Inc</option>
+                                                <option>Integra LifeSciences Corporation</option>
+                                                <option>Intersect ENT, Inc.</option>
+                                                <option>InterValve, Inc.</option>
+                                                <option>Intuitive Surgical, Inc.</option>
+                                                <option>Ipsen Biopharmaceuticals, Inc</option>
+                                                <option>Ipsen Bioscience Inc</option>
+                                                <option>Ipsen Innovation</option>
+                                                <option>Ipsen Pharma SAS</option>
+                                                <option>Iquum, Inc</option>
+                                                <option>iRhythm Technologies, Inc.</option>
+                                                <option>Iroko Pharmaceuticals, LLC</option>
+                                                <option>Ironwood Pharmaceuticals, Inc</option>
+                                                <option>ISTO Technologies, Inc.</option>
+                                                <option>Ivoclar Vivadent, Inc.</option>
+                                                <option>iWalk, Inc.</option>
+                                                <option>J. Morita USA, Inc.</option>
+                                                <option>Janssen Pharmaceuticals, Inc</option>
+                                                <option>Janssen Research & Development, LLC</option>
+                                                <option>Jazz Pharmaceuticals Inc.</option>
+                                                <option>Johnson & Johnson Vision Care, Inc.</option>
+                                                <option>K2M, Inc.</option>
+                                                <option>Kadmon Corporation LLC</option>
+                                                <option>KARLSTORZ Endoscopy-America</option>
+                                                <option>KCI USA, Inc</option>
+                                                <option>Kerr Corporation</option>
+                                                <option>Keystone Dental Inc.</option>
+                                                <option>Kinamed, Inc.</option>
+                                                <option>Kuraray America Inc.</option>
+                                                <option>Lantheus Medical Imaging, Inc.</option>
+                                                <option>LDR SPINE USA, INC</option>
+                                                <option>LEICA MICROSYSTEMS INC.</option>
+                                                <option>LeMaitre Vascular, Inc.</option>
+                                                <option>LEO Pharma Inc.</option>
+                                                <option>LifeCell Corporation</option>
+                                                <option>LifeNet Health Inc.</option>
+                                                <option>LifeScan, Inc.</option>
+                                                <option>Linde Gas North America, LLC</option>
+                                                <option>LIPOSCIENCE, INC.</option>
+                                                <option>Liventa Biosciences Inc.</option>
+                                                <option>Lombard Medical Technologies Inc.</option>
+                                                <option>Luitpold Pharmaceuticals Inc</option>
+                                                <option>LUMARA HEALTH INC.</option>
+                                                <option>Lundbeck LLC</option>
+                                                <option>Lutonix, Inc.</option>
+                                                <option>Mallinckrodt LLC</option>
+                                                <option>Maquet Cardiovascular L.L.C.</option>
+                                                <option>MAQUET Cardiovascular U.S. Sales, L.L.C.</option>
+                                                <option>Maxx Orthopedics, Inc.</option>
+                                                <option>MED-EL Corporation</option>
+                                                <option>Meda Pharmaceuticals, Inc.</option>
+                                                <option>MEDACTA USA</option>
+                                                <option>MEDELA INC.</option>
+                                                <option>Medical Engineering and Development Institute, Inc.</option>
+                                                <option>MEDICREA USA, Corp.</option>
+                                                <option>Medigus Ltd.</option>
+                                                <option>Medivation Inc.</option>
+                                                <option>Medline Industries, Inc.</option>
+                                                <option>Medspira, LLC</option>
+                                                <option>Medtronic MiniMed, Inc.</option>
+                                                <option>Medtronic Sofamor Danek USA, Inc.</option>
+                                                <option>Medtronic USA, Inc.</option>
+                                                <option>Medtronic Vascular, Inc.</option>
+                                                <option>Medtronic Xomed, Inc.</option>
+                                                <option>Medtronic, Inc.</option>
+                                                <option>Medyssey USA, Inc</option>
+                                                <option>Mentor Worldwide LLC</option>
+                                                <option>Mercator MedSystems, Inc.</option>
+                                                <option>Merck Sharp & Dohme Corporation</option>
+                                                <option>Meridian Bioscience Inc.</option>
+                                                <option>Merit Medical Systems Inc</option>
+                                                <option>Merz North America, Inc.</option>
+                                                <option>Merz Pharmaceuticals GmbH</option>
+                                                <option>MicroPort Orthopedics Inc</option>
+                                                <option>Millennium Pharmaceuticals, Inc.</option>
+                                                <option>Milliken Healthcare Products, LLC</option>
+                                                <option>Mindray DS USA, Inc.</option>
+                                                <option>MIPRO US, Inc.</option>
+                                                <option>Miromatrix Medical Inc.</option>
+                                                <option>MIS Implants Technologies, Inc.</option>
+                                                <option>Monteris Medical Corporation</option>
+                                                <option>MORTARA INSTRUMENT INC</option>
+                                                <option>MRI Interventions, Inc.</option>
+                                                <option>Musculoskeletal Transplant Foundation Inc.</option>
+                                                <option>Mylan Inc.</option>
+                                                <option>Navidea Biopharmaceuticals, Inc.</option>
+                                                <option>NDI Medical, LLC</option>
+                                                <option>Neomend, Inc.</option>
+                                                <option>NeoTract Inc.</option>
+                                                <option>Neoventa Medical, Inc.</option>
+                                                <option>NeuroMetrix Inc</option>
+                                                <option>Neuronetics, Inc.</option>
+                                                <option>NeuroPace, Inc.</option>
+                                                <option>NEW WORLD MEDICAL,INC.</option>
+                                                <option>New York Blood Center, Inc.</option>
+                                                <option>Nexus-Dx, inc</option>
+                                                <option>Nihon Kohden America, Inc.</option>
+                                                <option>NinePoint Medical, Inc.</option>
+                                                <option>Niveus Medical, Inc</option>
+                                                <option>Nonin Medical, Inc.</option>
+                                                <option>Novadaq Technologies Inc.</option>
+                                                <option>Novartis Pharma AG</option>
+                                                <option>Novartis Pharmaceuticals Corporation</option>
+                                                <option>Novartis Vaccines and Diagnostics Inc</option>
+                                                <option>Noven Pharmaceuticals, Inc.</option>
+                                                <option>Novian Health Inc.</option>
+                                                <option>Novo Nordisk AS</option>
+                                                <option>Novo Nordisk Inc</option>
+                                                <option>Novocure Inc.</option>
+                                                <option>NPS Pharmaceuticals, Inc.</option>
+                                                <option>NUVASIVE, INC.</option>
+                                                <option>NxStage Medical, Inc.</option>
+                                                <option>Octapharma USA, Inc.</option>
+                                                <option>Ocular Therapeutix, Inc.</option>
+                                                <option>Olympus Medical Systems Corporation</option>
+                                                <option>OMNIlife science, Inc</option>
+                                                <option>Omnyx LLC</option>
+                                                <option>On-x Life Technologies, Inc</option>
+                                                <option>One Lambda, Inc.</option>
+                                                <option>ONY, Inc.</option>
+                                                <option>Onyx Pharmaceuticals, Inc., an Amgen subsidiary</option>
+                                                <option>OPHTEC USA, Inc.</option>
+                                                <option>OPTOVUE, INC.</option>
+                                                <option>OraSure Technologies Inc.</option>
+                                                <option>Ormco Corporation</option>
+                                                <option>Orthofix International N.V.</option>
+                                                <option>OrthoSensor Inc.</option>
+                                                <option>Osmotica Pharmaceutical Corp.</option>
+                                                <option>Osprey Medical Inc</option>
+                                                <option>Oticon Medical, LLC</option>
+                                                <option>Otsuka America Pharmaceutical, Inc.</option>
+                                                <option>Otsuka Pharmaceutical Co., Ltd.</option>
+                                                <option>Pacira Pharmaceuticals Incorporated</option>
+                                                <option>Par Pharmaceutical, Inc.</option>
+                                                <option>PENTAX of America, Inc.</option>
+                                                <option>Penumbra, Inc.</option>
+                                                <option>Pernix Therapeutics Holdings, Inc.</option>
+                                                <option>Perrigo Company plc</option>
+                                                <option>Pfizer Inc.</option>
+                                                <option>Phadia AB</option>
+                                                <option>Pharmacyclics, Inc</option>
+                                                <option>Philips Electronics North America Corporation</option>
+                                                <option>Pinnacle Biologics, Inc</option>
+                                                <option>Plexxikon Inc.</option>
+                                                <option>Prometheus Laboratories Inc.</option>
+                                                <option>ProStrakan, Inc.</option>
+                                                <option>PULPDENT CORPORATION</option>
+                                                <option>Purdue Pharma L.P.</option>
+                                                <option>QIAGEN Sciences, LLC</option>
+                                                <option>QOL Medical, LLC</option>
+                                                <option>Quidel Corporation</option>
+                                                <option>Ranbaxy</option>
+                                                <option>Rapid Pathogen Screening, Inc.</option>
+                                                <option>Raptor Pharmaceuticals</option>
+                                                <option>Regeneron Pharmaceuticals, Inc.</option>
+                                                <option>Reliance Medical Products, Inc.</option>
+                                                <option>Remel, Inc.</option>
+                                                <option>ResMed Corp</option>
+                                                <option>Response Biomedical Corp.</option>
+                                                <option>Retrophin, Inc.</option>
+                                                <option>ReVision Optics, Inc.</option>
+                                                <option>revo Biologics, Inc.</option>
+                                                <option>Rhodes Pharmaceuticals L.P.</option>
+                                                <option>Roche Diagnostics Corporation</option>
+                                                <option>Roche Diagnostics GmbH</option>
+                                                <option>Roche Diagnostics Operations, Inc.</option>
+                                                <option>Roche Molecular Systems, Inc.</option>
+                                                <option>RTI Surgical, Inc.</option>
+                                                <option>Salix Pharmaceuticals, Ltd</option>
+                                                <option>Sandoz Inc.</option>
+                                                <option>Sanofi and Genzyme US Companies</option>
+                                                <option>Sanofi Pasteur Inc.</option>
+                                                <option>Seattle Genetics, Inc.</option>
+                                                <option>Sekisui Diagnostics LLC</option>
+                                                <option>Septodont Inc.</option>
+                                                <option>Shionogi Inc</option>
+                                                <option>Shire North American Group Inc</option>
+                                                <option>SI-BONE, Inc.</option>
+                                                <option>Siemens Medical Solutions USA, Inc.</option>
+                                                <option>Sigma-Tau Pharmaceuticals, Inc.</option>
+                                                <option>Silk Road Medical, Inc.</option>
+                                                <option>Silvergate Pharmaceuticals, Inc.</option>
+                                                <option>Skeletal Dynamics LLC</option>
+                                                <option>Small Bone Innovations Inc.</option>
+                                                <option>Smith & Nephew, Inc.</option>
+                                                <option>Sobi, Inc</option>
+                                                <option>SonaCare Medical, LLC</option>
+                                                <option>Sorin Group USA Inc.</option>
+                                                <option>Spectrum Pharmaceuticals Inc.</option>
+                                                <option>Spinal Modulation Inc.</option>
+                                                <option>Spineology Inc.</option>
+                                                <option>SpineSmith Holdings, LLC</option>
+                                                <option>Spiration, Inc.</option>
+                                                <option>St. Jude Medical, Inc.</option>
+                                                <option>STANDARD DIAGNOSTICS, INC.</option>
+                                                <option>Stereotaxis Inc</option>
+                                                <option>Stryker Corporation</option>
+                                                <option>Sucampo Pharma Americas, LLC</option>
+                                                <option>Sunovion Pharmaceuticals Inc.</option>
+                                                <option>SurgiQuest,Inc.</option>
+                                                <option>Swedish Orphan Biovitrum AB</option>
+                                                <option>Synapse Biomedical Inc</option>
+                                                <option>SYNCARDIA SYSTEMS, INC</option>
+                                                <option>Sysmex America, Inc.</option>
+                                                <option>Tactile Systems Technology Inc</option>
+                                                <option>Takeda Pharmaceutical Company, Limited</option>
+                                                <option>Takeda Pharmaceuticals U.S.A., Inc.</option>
+                                                <option>Teleflex Medical Incorporated</option>
+                                                <option>Teva Pharmaceuticals USA, Inc.</option>
+                                                <option>The Medicines Company</option>
+                                                <option>The Spectranetics Corporation</option>
+                                                <option>Theragenics Corporation</option>
+                                                <option>Theratechnologies Inc.</option>
+                                                <option>Theravance Biopharma Inc.</option>
+                                                <option>TOLMAR, INC.</option>
+                                                <option>TOPCON MEDICAL SYSTEMS, INC.</option>
+                                                <option>Torax Medical, Inc.</option>
+                                                <option>Toshiba America Medical Systems, Inc.</option>
+                                                <option>TOSHIBA MEDICAL RESEARCH INSTITUTE USA INC.</option>
+                                                <option>Toshiba Medical Systems Corporation</option>
+                                                <option>Transcend Medical, Inc.</option>
+                                                <option>Traslational Cancer Drugs Pharma S.L.</option>
+                                                <option>TriVascular, Inc.</option>
+                                                <option>Tulsa Dental Products LLC</option>
+                                                <option>UCB, Inc.</option>
+                                                <option>United Therapeutics Corporation</option>
+                                                <option>Upsher-Smith Laboratories Inc.</option>
+                                                <option>Uroplasty, Inc.</option>
+                                                <option>Valeant Pharmaceuticals International</option>
+                                                <option>Valeritas, Inc.</option>
+                                                <option>Valneva Austria GmbH</option>
+                                                <option>Vanda Pharmaceuticals Inc.</option>
+                                                <option>Varian Medical Systems, Inc.</option>
+                                                <option>Vasc-Alert LLC</option>
+                                                <option>Ventana Medical Systems, Inc.</option>
+                                                <option>Veran Medical Technologies, Inc.</option>
+                                                <option>Verathon Inc.</option>
+                                                <option>VERTEX PHARMACEUTICALS INCORPORATED</option>
+                                                <option>Vertiflex, Inc.</option>
+                                                <option>Vidacare Corporation</option>
+                                                <option>VIEWRAY INC</option>
+                                                <option>ViiV Healthcare Company</option>
+                                                <option>Viracor-IBT Laboratories, Inc.</option>
+                                                <option>VisionCare Opthalmic Technologies, Inc.</option>
+                                                <option>VitaHEAT Medical, LLC</option>
+                                                <option>Vital Art and Science, LLC</option>
+                                                <option>Vital Images, Inc.</option>
+                                                <option>VIVUS, Inc.</option>
+                                                <option>Volcano Corporation</option>
+                                                <option>W. L. Gore & Associates, Inc.</option>
+                                                <option>Warner Chilcott LLC</option>
+                                                <option>Wavetec Vision Systems, Inc.</option>
+                                                <option>Welch Allyn</option>
+                                                <option>Wenzel Spine, Inc.</option>
+                                                <option>Wound Care Technologies, Inc.</option>
+                                                <option>Zimmer Holding Inc</option>
+                                                <option>ZOLL Circulation Inc</option>
+                                                <option>ZOLL Services LLC (A/K/A ZOLL LifeCor Corp)</option>
+                                                <option>Zyga Technology Inc</option>
+                                        </select>
+                                        <br /> <br />
+                                        <button type="submit" value="Send" name="state-company-container" class="btn btn-default id-submit">Submit</button>
+                                </div>
+                        </form>
+                </div>
+        </div>
+{% endblock %}
