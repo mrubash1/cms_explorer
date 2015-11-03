@@ -25,15 +25,7 @@ def get_connection(database):
       print('closing connection')
       cnx.close()
 
-#not in use due to weakly connected variables
-def get_cursor(database):
-    #first get connection
-    conn=(get_connection(database))
-    cursor=conn.cursor()
-    print 'cursor: ', cursor
-    return cursor
-
-
+#Create database and table function, also enables future ETL work, including combining name columns and informed lookups
 def create_database_and_table(database,table_name):
     #create the layout/schema of the table
     schema= ("CREATE TABLE IF NOT EXISTS " + str(table_name) + " ("
@@ -52,8 +44,9 @@ def create_database_and_table(database,table_name):
         conn.query('USE %s' % database)
         conn.query('CREATE TABLE IF NOT EXISTS tbl ('+schema+')') #(id INT AUTO_INCREMENT PRIMARY KEY)')
 
+#Import the raw data (CMS-Explorer), originally downloaded as csv then copied to EC2
 def import_data_to_table(database,table_name,file_location):
-    #commands for inserting into a csv
+    #commands for inserting into a csv, uses ignore to skip over columns to decrease database size
     mysql_query= ("LOAD DATA INFILE" +"'" +file_location + "'" 
     "into table " + table_name + 'fields terminated by ' + ","
     'optionally enclosed by' + '"' 
@@ -226,7 +219,8 @@ def import_data_to_table(database,table_name,file_location):
     with get_connection(database) as conn:
         conn.execute(mysql_query)
 
-#returns a list of companies that are listed in the database
+#returns a list of companies that are listed in the database for use in making index template for flask with direct company lookup
+#therefore decreasing risk of sql-injection attack
 def get_company_names(database,table):
     mysql_query=('SELECT DISTINCT Submitting_Applicable_Manufacturer_or_Applicable_GPO_Name AS companies '
     'FROM ' + table + ';')
@@ -255,6 +249,8 @@ def get_company_names(database,table):
     companies_list.sort()
     return companies_list
 
+#function is used to generate which states are represented in the data
+#therefore decreasing risk of sql-injection attack
 def get_states(database,table):
     mysql_query=('SELECT DISTINCT Recipient_State AS state '
     'FROM ' + table + ';')
@@ -298,7 +294,7 @@ def get_states(database,table):
     #return back both the state abbreviations and states list with fullname
     return states_list,states_list_fullname 
             
-            
+#query_database function is also found in flask app            
 def query_database(database,table,state,company):
     #check what type of query is coming in, and change the response accordingly
     if state=='All' and company=='All':
@@ -325,7 +321,7 @@ def query_database(database,table,state,company):
         mysql_query_specific_company=("    SELECT Physician_Full_Name AS Physician,     "
         "    SUM(Total_Amount_of_Payment_USDollars) AS Received_the_following_money,     "
         "    count(Total_Amount_of_Payment_USDollars) AS In_this_many_payments,    "
-        "    Submitting_Applicable_Manufacturer_or_Applicable_GPO_Name AS From_this_company,    "
+        "    Submitting_Applicable_Manufacturer_or_Applicable_GPO_Name AS From_this_company    "
         "    FROM " + str(table) + "    WHERE Physician_Full_Name <> '   '     "
         "    AND Submitting_Applicable_Manufacturer_or_Applicable_GPO_Name = '" + company + "' "
         "    GROUP BY Physician_Profile_ID, Submitting_Applicable_Manufacturer_or_Applicable_GPO_Name    "
