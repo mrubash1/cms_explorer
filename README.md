@@ -28,7 +28,7 @@
   PRIMARY KEY (ID) 
   );
 
-! [SCHEMA] (flask/static/img/sql_schema.png)
+![SCHEMA] (flask/static/img/sql_schema.png)
 
 *ETL functions to load the data from the csv into table 6, keeping relevant columns only:
   *Declare how the csv is formatted via: |fields terminated by ',' optionally enclosed by '"' lines terminated by '\n' '|
@@ -66,7 +66,7 @@
   ORDER BY SUM(Total_Amount_of_Payment_USDollars) DESC
   LIMIT 20;|
 
-! [Example Query] (flask/static/img/example_query.png)
+![Example Query] (flask/static/img/example_query.png)
 
 ## 3. Flask Web Application
 *The Flask application is written in python allowing querying of the MySQL database via custom connectors 
@@ -74,7 +74,7 @@
 *Scripts and templates can be found in the Flask folder
 *Example data results below
 
-! [Example Data Results] (flask/static/img/data_results.png)
+![Example Data Results] (flask/static/img/data_results.png)
 
 ## 4. Future Directions
 * Linking this dataset with other measures of physician quality including insurance claims data and patient medicare claims data
