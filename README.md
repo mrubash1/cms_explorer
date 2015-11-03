@@ -85,8 +85,8 @@
   * Additionally, with an informed partitioning strategy for physician and company based queries, key-value looks up could be increased in speed compared to MySQL (via column store disk storage)
   * This strategy would be as follows
     * Partition Key: Physician_Custom_ID
-    * 1st Clustering Column: Company
-    * 2nd Clustering Column: State (with the drawback that joins across state based queries would be siginificantly slower)
+    * Clustering Column: Company
+    * Unclustered column: State (with the drawback that joins across state based queries would be siginificantly slower)
   * However there are drawbacks to Cassandra including
     * Reduced flexibility in queries
     * Difficulty in adding or removing a column
