@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Cms explorer : Simple web client for examining medicare and medicaid services">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Cms explorer</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/mrubash1/cms_explorer">View on GitHub</a>
+
+          <h1 id="project_title">Cms explorer</h1>
+          <h2 id="project_tagline">Simple web client for examining medicare and medicaid services</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/mrubash1/cms_explorer/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/mrubash1/cms_explorer/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="cms_explorer" class="anchor" href="#cms_explorer" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="http://mrubash1.com/cms_explorer">CMS_Explorer</a>
+</h1>
+
+<h2>
+<a id="index" class="anchor" href="#index" aria-hidden="true"><span class="octicon octicon-link"></span></a>Index</h2>
+
+<ol>
+<li><a href="README.md#1-introduction">Introduction</a></li>
+<li><a href="README.md#2-data-preparation">Data Preparation</a></li>
+<li><a href="README.md#3-flask-web-application">Flask Web Application</a></li>
+<li><a href="README.md#4-future-directions">Future Directions</a></li>
+</ol>
+
+<p><img src="flask/static/img/cms_explorer.png" alt="CMS Explorer"></p>
+
+<h2>
+<a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Introduction</h2>
+
+<p><a href="http://mrubash1.com/cms_explorer">CMS_Explorer</a> is an analysis platform for research into financial relationships between physicians and the pharmaceutical industry. It is a data platform that is built on <a href="https://www.mysql.com/">MySQL</a>, <a href="http://flask.pocoo.org/">Flask</a> and <a href="https://www.python.org/">Python</a>; run on 1 <a href="http://aws.amazon.com/">AWS T2micro</a> with Linux Ubuntu. </p>
+
+<h2>
+<a id="2-data-preperation" class="anchor" href="#2-data-preperation" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Data Preperation</h2>
+
+<ul>
+<li>Send Medicare/Medicaid raw CMS file (CSV format) to EC2 MySQL/web-host: OP_DTL_RSRCH_PGYR2014_P06302015.csv</li>
+<li>Via scp copying: scp -o "StrictHostKeyChecking no" -i ~/.ssh/my-personal-key.pem ~/Desktop/OP_DTL_RSRCH_PGYR2014_P06302015.csv <a href="mailto:ubuntu@ec2-52-89-150-150.us-west-2.compute.amazonaws.com">ubuntu@ec2-52-89-150-150.us-west-2.compute.amazonaws.com</a>:~/cms_explorer</li>
+<li>Change the permissions so it can be opened by mysql: chmod o+rx OP_DTL_RSRCH_PGYR2014_P06302015.csv</li>
+<li>Make database: create databse grand_rounds;use grand_rounds</li>
+<li>Clone into github repo: git clone <a href="https://github.com/mrubash1/cms_explorer">https://github.com/mrubash1/cms_explorer</a>
+</li>
+<li>The following table is created by cms_explorer.py in the prepare_mysql_database folder</li>
+<li>CREATE TABLE IF NOT EXISTS test (
+ID BIGINT AUTO_INCREMENT NOT NULL,
+Physician_Profile_ID BIGINT,
+Physician_Full_Name VARCHAR(100),
+Recipient_State VARCHAR(2),
+Submitting_Applicable_Manufacturer_or_Applicable_GPO_Name VARCHAR(100),
+Total_Amount_of_Payment_USDollars DECIMAL,
+PRIMARY KEY (ID) 
+);</li>
+</ul>
+
+<p><img src="flask/static/img/sql_schema.png" alt="SCHEMA"></p>
+
+<ul>
+<li>
+<p>ETL functions to load the data from the csv into table 6, keeping relevant columns only:
+*Declare how the csv is formatted via: |fields terminated by ',' optionally enclosed by '"' lines terminated by '\n' '|
+*Ignore the first line as we already constructed the header above
+*For all columns that we are not keeping, use <a href="https://github.com/ignore" class="user-mention">@ignore</a>:
+  *|ignore 1 lines(
+    <a href="https://github.com/ignore" class="user-mention">@ignore</a>,
+    <a href="https://github.com/ignore" class="user-mention">@ignore</a>,
+    <a href="https://github.com/ignore" class="user-mention">@ignore</a>,
+    <a href="https://github.com/ignore" class="user-mention">@ignore</a>,
+    Physician_Profile_ID,
+    @var2,
+    <a href="https://github.com/var3" class="user-mention">@var3</a>,
+    @var4,
+    <a href="https://github.com/var1" class="user-mention">@var1</a>,
+    <a href="https://github.com/ignore" class="user-mention">@ignore</a>|
+    ...</p>
+
+<ul>
+<li>Construct an individual doctor's name by adding the first, middle and last name
+
+<ul>
+<li>SET Physician_Full_Name = CONCAT(<a href="https://github.com/var1" class="user-mention">@var1</a>, ' ', @var2 ,' ',<a href="https://github.com/var3" class="user-mention">@var3</a>, ' ',@var4, ' ');</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Query data by grouping doctors, and/or state and company by user request (default= 'All')</p></li>
+<li>Importantly, doctors are identified by Physician_Profile_ID to avoid duplicate names</li>
+<li>Additionally, some required data munging includes eliminating any entries that do not have the doctors name |HAVING Physician_Full_Name &lt;&gt; '   '|</li>
+<li>Example query and results below:
+|SELECT Physician_Full_Name AS Physician, 
+SUM(Total_Amount_of_Payment_USDollars) AS Received_the_following_money, 
+count(Total_Amount_of_Payment_USDollars) AS In_this_many_payments,
+Submitting_Applicable_Manufacturer_or_Applicable_GPO_Name AS From_this_company,
+Recipient_State AS In_the_state_of
+FROM test6
+WHERE Physician_Full_Name &lt;&gt; '   ' 
+AND Submitting_Applicable_Manufacturer_or_Applicable_GPO_Name = 'Genentech, Inc.'
+AND Recipient_State = 'CA'
+GROUP BY Physician_Profile_ID, Recipient_State, Submitting_Applicable_Manufacturer_or_Applicable_GPO_Name
+ORDER BY SUM(Total_Amount_of_Payment_USDollars) DESC
+LIMIT 20;|</li>
+</ul>
+
+<p><img src="flask/static/img/example_query.png" alt="Example Query"></p>
+
+<h2>
+<a id="3-flask-web-application" class="anchor" href="#3-flask-web-application" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Flask Web Application</h2>
+
+<ul>
+<li>The Flask application is written in python allowing querying of the MySQL database via custom connectors </li>
+<li>Flask also enables dynamic loading of data and results into html tables</li>
+<li>Scripts and templates can be found in the Flask folder</li>
+<li>Example data results below</li>
+</ul>
+
+<p><img src="flask/static/img/data_results.png" alt="Example Data Results"></p>
+
+<h2>
+<a id="4-future-directions" class="anchor" href="#4-future-directions" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. Future Directions</h2>
+
+<ul>
+<li>Linking this dataset with other measures of physician quality including insurance claims data and patient medicare claims data</li>
+<li>Enable physician search functionality so individuals can examine the industry ties of their current or future potential physician</li>
+<li>In the future, this platform could be implemented with the NoSQL database <a href="http://cassandra.apache.org/">Cassandra</a>
+
+<ul>
+<li>Cassandra would enable rapid scaling to a distributed system format, with increased ability for concurrent writes (new data, user interactions), as well as concurrent reads (user based queries)</li>
+<li>Cassandra clusters are more reliable then traditional MySQL sharding strategies</li>
+<li>Additionally, with an informed partitioning strategy for physician and company based queries, key-value looks up could be increased in speed compared to MySQL (via column store disk storage)</li>
+<li>This strategy would be as follows
+
+<ul>
+<li>Partition Key: Physician_Custom_ID</li>
+<li>Clustering Column: Company</li>
+<li>Unclustered column: State (with the drawback that joins across state based queries would be siginificantly slower)</li>
+</ul>
+</li>
+<li>However there are drawbacks to Cassandra including
+
+<ul>
+<li>Reduced flexibility in queries</li>
+<li>Difficulty in adding or removing a column</li>
+<li>Potential lack of consistency if a node goes down <a href="https://en.wikipedia.org/wiki/CAP_theorem">CAP Theorem</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Alternative distributed system databases that could also be implemented include <a href="https://www.elastic.co/">ElasticSearch</a> for text searching via a reverse index strategy, or <a href="https://aws.amazon.com/redshift/">Amazon Redshift</a> for increased consistency in a distributed system.</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Cms explorer maintained by <a href="https://github.com/mrubash1">mrubash1</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("(function(i,s,o,g,r,a,m){i[&#39;GoogleAnalyticsObject&#39;]=r;i[r]=i[r]||function(){                   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),                   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)                   })(window,document,&#39;script&#39;,&#39;//www.google-analytics.com/analytics.js&#39;,&#39;ga&#39;);                   ga(&#39;create&#39;, &#39;UA-68928628-1&#39;, &#39;auto&#39;);                   ga(&#39;send&#39;, &#39;pageview&#39;);");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
