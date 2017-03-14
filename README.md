@@ -1,13 +1,13 @@
 ## Index
-1. [Introduction] (README.md#1-introduction)
-2. [Data Preparation] (README.md#2-data-preparation)
-3. [Flask Web Application] (README.md#3-flask-web-application)
-4. [Future Directions] (README.md#4-future-directions)
+1. [Introduction](README.md#1-introduction)
+2. [Data Preparation](README.md#2-data-preparation)
+3. [Flask Web Application](README.md#3-flask-web-application)
+4. [Future Directions](README.md#4-future-directions)
 
-![CMS Explorer] (flask/static/img/cms_explorer.png)
+![CMS Explorer](flask/static/img/cms_explorer.png)
 
 ## 1. Introduction
-[CMS_Explorer] is an analysis platform for research into financial relationships between physicians and the pharmaceutical industry. It is a data platform that is built on [MySQL] (https://www.mysql.com/), [Flask] (http://flask.pocoo.org/) and [Python] (https://www.python.org/); run on 1 [AWS T2micro] (http://aws.amazon.com/) with Linux Ubuntu. 
+CMS_Explorer is an analysis platform for research into financial relationships between physicians and the pharmaceutical industry. It is a data platform that is built on [MySQL](https://www.mysql.com/), [Flask](http://flask.pocoo.org/) and [Python](https://www.python.org/); run on 1 [AWS T2micro](http://aws.amazon.com/) with Linux Ubuntu. 
 
 ## 2. Data Preperation
 * Send Medicare/Medicaid raw CMS file (CSV format) to EC2 MySQL/web-host: OP_DTL_RSRCH_PGYR2014_P06302015.csv
@@ -26,7 +26,7 @@
   PRIMARY KEY (ID) 
   );
 
-![SCHEMA] (flask/static/img/sql_schema.png)
+![SCHEMA](flask/static/img/sql_schema.png)
 
 * ETL functions to load the data from the csv into table 6, keeping relevant columns only:
   *Declare how the csv is formatted via: |fields terminated by ',' optionally enclosed by '"' lines terminated by '\n' '|
@@ -64,7 +64,7 @@
   ORDER BY SUM(Total_Amount_of_Payment_USDollars) DESC
   LIMIT 20;|
 
-![Example Query] (flask/static/img/example_query.png)
+![Example Query](flask/static/img/example_query.png)
 
 ## 3. Flask Web Application
 * The Flask application is written in python allowing querying of the MySQL database via custom connectors 
@@ -72,12 +72,12 @@
 * Scripts and templates can be found in the Flask folder
 * Example data results below
 
-![Example Data Results] (flask/static/img/data_results.png)
+![Example Data Results](flask/static/img/data_results.png)
 
 ## 4. Future Directions
 * Linking this dataset with other measures of physician quality including insurance claims data and patient medicare claims data
 * Enable physician search functionality so individuals can examine the industry ties of their current or future potential physician
-* In the future, this platform could be implemented with the NoSQL database [Cassandra] (http://cassandra.apache.org/)
+* In the future, this platform could be implemented with the NoSQL database [Cassandra](http://cassandra.apache.org/)
   * Cassandra would enable rapid scaling to a distributed system format, with increased ability for concurrent writes (new data, user interactions), as well as concurrent reads (user based queries)
   * Cassandra clusters are more reliable then traditional MySQL sharding strategies
   * Additionally, with an informed partitioning strategy for physician and company based queries, key-value looks up could be increased in speed compared to MySQL (via column store disk storage)
@@ -88,6 +88,6 @@
   * However there are drawbacks to Cassandra including
     * Reduced flexibility in queries
     * Difficulty in adding or removing a column
-    * Potential lack of consistency if a node goes down [CAP Theorem] (https://en.wikipedia.org/wiki/CAP_theorem)
-* Alternative distributed system databases that could also be implemented include [ElasticSearch](https://www.elastic.co/) for text searching via a reverse index strategy, or [Amazon Redshift] (https://aws.amazon.com/redshift/) for increased consistency in a distributed system.
+    * Potential lack of consistency if a node goes down [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem)
+* Alternative distributed system databases that could also be implemented include [ElasticSearch](https://www.elastic.co/) for text searching via a reverse index strategy, or [Amazon Redshift](https://aws.amazon.com/redshift/) for increased consistency in a distributed system.
 
