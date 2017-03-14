@@ -1,5 +1,3 @@
-# [CMS_Explorer] (http://mrubash1.com/cms_explorer)
-
 ## Index
 1. [Introduction] (README.md#1-introduction)
 2. [Data Preparation] (README.md#2-data-preparation)
@@ -9,7 +7,7 @@
 ![CMS Explorer] (flask/static/img/cms_explorer.png)
 
 ## 1. Introduction
-[CMS_Explorer] (http://mrubash1.com/cms_explorer) is an analysis platform for research into financial relationships between physicians and the pharmaceutical industry. It is a data platform that is built on [MySQL] (https://www.mysql.com/), [Flask] (http://flask.pocoo.org/) and [Python] (https://www.python.org/); run on 1 [AWS T2micro] (http://aws.amazon.com/) with Linux Ubuntu. 
+[CMS_Explorer] is an analysis platform for research into financial relationships between physicians and the pharmaceutical industry. It is a data platform that is built on [MySQL] (https://www.mysql.com/), [Flask] (http://flask.pocoo.org/) and [Python] (https://www.python.org/); run on 1 [AWS T2micro] (http://aws.amazon.com/) with Linux Ubuntu. 
 
 ## 2. Data Preperation
 * Send Medicare/Medicaid raw CMS file (CSV format) to EC2 MySQL/web-host: OP_DTL_RSRCH_PGYR2014_P06302015.csv
